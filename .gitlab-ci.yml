@@ -1,0 +1,39 @@
+# Pipeline CI/CD API Automation (Restful-Booker) - Team 2
+image: maven:3.9.6-eclipse-temurin-17
+
+stages:
+  - test
+  - report
+
+variables:
+  MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=.m2/repository"
+
+cache:
+  paths:
+    - .m2/repository/
+
+run_api_tests:
+  stage: test
+  script:
+    - mvn clean test
+  artifacts:
+    when: always
+    paths:
+      - target/surefire-reports
+      - target/allure-results
+    expire_in: 1 week
+
+pages:
+  stage: report
+  needs: ["run_api_tests"]
+  script:
+    - mvn allure:report
+    - mkdir -p public
+    - cp -r target/site/allure-maven-plugin/* public/
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days
+  only:
+    - main
+    - develop
