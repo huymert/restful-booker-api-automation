@@ -1,12 +1,14 @@
 package api;
 
 import org.testng.annotations.BeforeClass;
-import utils.ConfigReader;
 
-public abstract class BaseApiTest {
+public abstract class BaseApiTest extends BaseApi {
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void setupApi() {
-        // Cấu hình RestAssured RequestSpecification & Token Auth sẽ hoàn thiện ở Sprint 1
+        System.out.println("========================================");
+        System.out.println("  API Base URL: " + BASE_URL);
+        System.out.println("  Test Class : " + this.getClass().getSimpleName());
+        System.out.println("========================================");
     }
 }
