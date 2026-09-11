@@ -4,9 +4,11 @@
 
 ---
 
-## 👥 Thành viên phụ trách
+## 👥 Thành viên nhóm & Phân công nhiệm vụ (Team 2)
 * **Lê Thị Hải Hà**: Cấu hình Base API Rest Assured, Auth Token (`/auth`), Tạo mới booking (`POST`), Lấy thông tin chi tiết (`GET`), Request Chaining.
-* **Chi**: Cập nhật booking (`PUT/PATCH`), Xóa booking (`DELETE`), Negative Scenarios, Cấu hình GitLab CI/CD & Allure Report.
+* **Trần Thị Quỳnh Chi**: Cập nhật booking (`PUT/PATCH`), Xóa booking (`DELETE`), Negative Scenarios, Cấu hình GitLab CI/CD & Allure Report.
+* **Hà Gia Huy**: Scrum Master (Sprint 0) / Phụ trách Module UI SauceDemo.
+* **Nguyễn Khánh Linh**: Thành viên Team 2 / Phụ trách Module UI SauceDemo.
 * **Mentor / Product Owner**: Thầy Vũ Lê Minh
 
 ---
@@ -16,6 +18,7 @@
 * **Base URL**: https://restful-booker.herokuapp.com
 * **Tài liệu API**: https://restful-booker.herokuapp.com/apidoc
 * **Công nghệ**: Java 17, Rest Assured, TestNG, JSON Schema Validator, Maven, Allure Report, GitLab CI.
+* **GitLab Repository**: https://gitlab.com/capstone_yah/restful-booker-api-automation.git
 
 ---
 
@@ -31,9 +34,20 @@
 
 ---
 
-## 🌿 Git Workflow
+## 🌿 Git Workflow & Hướng dẫn Clone
+```bash
+# 1. Clone repository về máy
+git clone https://gitlab.com/capstone_yah/restful-booker-api-automation.git
+cd restful-booker-api-automation
+
+# 2. Chuyển sang nhánh develop
+git checkout develop
+
+# 3. Tạo nhánh feature từ develop để làm bài
+git checkout -b feature/<ten-tinh-nang>-<ten-ban>
+```
 * **Nhánh chính**: `main` (Production/Demo), `develop` (Tích hợp phát triển).
-* **Nhánh tính năng**: `feature/api-auth-ha`, `feature/api-crud-chi`.
+* **Nhánh tính năng gợi ý**: `feature/api-auth-ha`, `feature/api-crud-chi`.
 
 ---
 
