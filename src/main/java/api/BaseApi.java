@@ -2,8 +2,6 @@ package api;
 
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.specification.RequestSpecification;
 import utils.ConfigReader;
 
@@ -13,13 +11,12 @@ public abstract class BaseApi {
 
     static {
         RestAssured.baseURI = BASE_URL;
+        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 
         requestSpec = new RequestSpecBuilder()
                 .setBaseUri(BASE_URL)
                 .setContentType("application/json")
                 .setAccept("application/json")
-                .addFilter(new RequestLoggingFilter())
-                .addFilter(new ResponseLoggingFilter())
                 .build();
     }
 }
