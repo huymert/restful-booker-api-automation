@@ -34,7 +34,6 @@ public class AuthTest extends BaseApiTest {
 
         String token = response.path("token");
         ApiDataStore.setAuthToken(token);
-        System.out.println("Generated Token: " + token);
     }
 
     @Test(description = "API-SC-02: Verify auth fails with invalid credentials")
