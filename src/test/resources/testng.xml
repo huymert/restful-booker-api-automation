@@ -9,6 +9,7 @@
     <test name="Booking Tests">
         <classes>
             <class name="api.BookingTest"/>
+            <class name="api.FilterBookingTest"/>
         </classes>
     </test>
 </suite>
