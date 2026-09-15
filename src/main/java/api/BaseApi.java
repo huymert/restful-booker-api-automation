@@ -1,5 +1,6 @@
 package api;
 
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
@@ -17,6 +18,7 @@ public abstract class BaseApi {
                 .setBaseUri(BASE_URL)
                 .setContentType("application/json")
                 .setAccept("application/json")
+                .addFilter(new AllureRestAssured()) // Automatically attach req/res to Allure
                 .build();
     }
 }
