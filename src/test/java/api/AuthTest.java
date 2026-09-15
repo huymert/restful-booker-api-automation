@@ -36,11 +36,21 @@ public class AuthTest extends BaseApiTest {
         ApiDataStore.setAuthToken(token);
     }
 
-    @Test(description = "API-SC-02: Verify auth fails with invalid credentials")
-    public void testCreateTokenInvalidCredentials() {
+    @org.testng.annotations.DataProvider(name = "invalidAuthData")
+    public Object[][] invalidAuthData() {
+        return new Object[][] {
+                {"admin", "wrongpassword"}, // Sai pass
+                {"wrongadmin", "password123"}, // Sai user
+                {"", "password123"}, // rỗng user
+                {"admin", ""} // rỗng pass
+        };
+    }
+
+    @Test(description = "API-SC-02: Verify auth fails with invalid credentials", dataProvider = "invalidAuthData")
+    public void testCreateTokenInvalidCredentials(String username, String password) {
         Map<String, String> authPayload = new HashMap<>();
-        authPayload.put("username", "admin");
-        authPayload.put("password", "wrongpassword");
+        authPayload.put("username", username);
+        authPayload.put("password", password);
 
         given()
                 .spec(requestSpec)
