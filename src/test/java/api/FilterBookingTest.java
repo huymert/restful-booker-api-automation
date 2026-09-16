@@ -14,8 +14,8 @@ public class FilterBookingTest extends BaseApiTest {
     public void testFilterByNames() {
         given()
                 .spec(requestSpec)
-                .queryParam("firstname", "Gia")
-                .queryParam("lastname", "Huy")
+                .queryParam("firstname", ApiDataStore.getFirstname())
+                .queryParam("lastname", ApiDataStore.getLastname())
                 .when()
                 .get("/booking")
                 .then()

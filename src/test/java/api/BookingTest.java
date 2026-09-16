@@ -45,6 +45,8 @@ public class BookingTest extends BaseApiTest {
         // Extract and Save Booking ID for Request Chaining
         int bookingId = response.path("bookingid");
         ApiDataStore.setBookingId(bookingId);
+        ApiDataStore.setFirstname("Gia");
+        ApiDataStore.setLastname("Huy");
     }
 
     @Test(description = "API-SC-04: Verify user can get booking by ID", dependsOnMethods = "testCreateBooking")
