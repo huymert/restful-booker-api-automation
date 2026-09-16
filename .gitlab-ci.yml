@@ -45,8 +45,7 @@ notify_discord_success:
   needs: ["run_api_tests"]
   when: on_success
   script:
-    - chmod +x notify.sh
-    - ./notify.sh success
+    - sh notify.sh success
 
 notify_discord_failure:
   stage: notify
@@ -54,5 +53,4 @@ notify_discord_failure:
   needs: ["run_api_tests"]
   when: on_failure
   script:
-    - chmod +x notify.sh
-    - ./notify.sh failure
+    - sh notify.sh failure
