@@ -4,6 +4,7 @@ image: maven:3.9.6-eclipse-temurin-17
 stages:
   - test
   - report
+  - notify
 
 variables:
   MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=.m2/repository"
@@ -37,3 +38,19 @@ pages:
   only:
     - main
     - develop
+
+notify_discord_success:
+  stage: notify
+  image: curlimages/curl:latest
+  needs: ["run_api_tests"]
+  when: on_success
+  script:
+    - sh notify.sh success
+
+notify_discord_failure:
+  stage: notify
+  image: curlimages/curl:latest
+  needs: ["run_api_tests"]
+  when: on_failure
+  script:
+    - sh notify.sh failure
