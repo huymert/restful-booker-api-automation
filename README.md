@@ -1,61 +1,121 @@
-# Restful-Booker API Automation Framework
+# Restful-Booker REST API Automation Testing Framework
 
-> **Module 2: API Automation Testing - Capstone Project (Team 2 - Rikkei Edu)**
+[![Java](https://img.shields.io/badge/Java-17-orange.svg?style=for-the-badge&logo=openjdk)](https://www.oracle.com/java/)
+[![Rest-Assured](https://img.shields.io/badge/Rest--Assured-5.4.0-blue.svg?style=for-the-badge)](https://rest-assured.io/)
+[![TestNG](https://img.shields.io/badge/TestNG-7.10.2-red.svg?style=for-the-badge&logo=testng)](https://testng.org/)
+[![Maven](https://img.shields.io/badge/Maven-3.x-C71A36.svg?style=for-the-badge&logo=apachemaven)](https://maven.apache.org/)
+[![Allure Report](https://img.shields.io/badge/Allure%20Report-2.27.0-blueviolet.svg?style=for-the-badge&logo=qameta)](https://qameta.io/)
+[![JSON Schema](https://img.shields.io/badge/JSON%20Schema-Draft--04-brightgreen.svg?style=for-the-badge&logo=json)](https://json-schema.org/)
 
----
-
-## 👥 Thành viên nhóm & Phân công nhiệm vụ (Team 2)
-* **Lê Thị Hải Hà**: Cấu hình Base API Rest Assured, Auth Token (`/auth`), Tạo mới booking (`POST`), Lấy thông tin chi tiết (`GET`), Request Chaining.
-* **Trần Thị Quỳnh Chi**: Cập nhật booking (`PUT/PATCH`), Xóa booking (`DELETE`), Negative Scenarios, Cấu hình GitLab CI/CD & Allure Report.
-* **Hà Gia Huy**: Scrum Master (Sprint 0) / Phụ trách Module UI SauceDemo.
-* **Nguyễn Khánh Linh**: Thành viên Team 2 / Phụ trách Module UI SauceDemo.
-* **Mentor / Product Owner**: Thầy Vũ Lê Minh
+A robust, enterprise-grade **REST API Automation Testing Framework** targeting the **Restful-Booker** booking platform ([restful-booker.herokuapp.com](https://restful-booker.herokuapp.com/apidoc)). Built with **Java 17**, **Rest Assured**, **TestNG**, **Jackson Databind**, strict **JSON Schema Validation**, dynamic **Request Chaining**, and rich **Allure Reporting** with automated HTTP request/response payload logging.
 
 ---
 
-## 🌐 Hệ thống API kiểm thử
-* **Hệ thống API**: Restful-Booker
-* **Base URL**: https://restful-booker.herokuapp.com
-* **Tài liệu API**: https://restful-booker.herokuapp.com/apidoc
-* **Công nghệ**: Java 17, Rest Assured, TestNG, JSON Schema Validator, Maven, Allure Report, GitLab CI.
-* **GitLab Repository**: https://gitlab.com/capstone_yah/restful-booker-api-automation.git
+## 📌 Framework Highlights & Architecture
+
+* **Request & Response Standardization**: Centralized `BaseApi` configuration using `RequestSpecBuilder` to encapsulate Base URI, Content-Type headers, and global filters.
+* **Token Lifecycle & Auth Handling**: Dedicated authentication module to obtain, parse, and inject Bearer / Cookie auth tokens into privileged endpoints.
+* **Request Chaining (`ApiDataStore`)**: Thread-safe dynamic state manager facilitating sequential API chaining:
+  $$\text{POST /auth} \longrightarrow \text{POST /booking} \longrightarrow \text{GET /booking/\{id\}} \longrightarrow \text{PUT} \longrightarrow \text{PATCH} \longrightarrow \text{DELETE} \longrightarrow \text{Verify 404}$$
+* **Contract & Schema Validation**: Automated JSON Schema verification (`booking-schema.json`) guaranteeing strict API contract compliance.
+* **Negative & Boundary Testing**: Rigorous negative test coverage for invalid credentials, unauthorized updates, and accessing purged resources.
+* **Automated HTTP Logging**: Native integration with `allure-rest-assured` to attach complete request URIs, headers, query parameters, bodies, response status codes, and JSON responses to Allure Reports.
 
 ---
 
-## 📋 8 Test Scenarios API (Restful-Booker)
-1. `[API-SC-01]` **[High]** `POST /auth`: Tạo Auth Token thành công với credentials hợp lệ.
-2. `[API-SC-02]` **[Low]** `POST /auth`: Tạo token thất bại khi sai credentials (Negative test).
-3. `[API-SC-03]` **[High]** `POST /booking`: Tạo mới booking phòng thành công, nhận về `bookingid`.
-4. `[API-SC-04]` **[High]** `GET /booking/{id}`: Lấy chi tiết booking theo ID vừa tạo, validate schema.
-5. `[API-SC-05]` **[High]** `PUT /booking/{id}`: Cập nhật thông tin booking (yêu cầu Auth Token).
-6. `[API-SC-06]` **[Medium]** `PATCH /booking/{id}`: Cập nhật một phần thông tin booking (chỉ đổi firstname).
-7. `[API-SC-07]` **[High]** `DELETE /booking/{id}`: Xóa booking (yêu cầu Auth Token) trả về HTTP 201 Created.
-8. `[API-SC-08]` **[Medium]** `GET /booking/{id_đã_xóa}`: Kiểm tra trả về HTTP 404 Not Found (Negative test).
+## 🏗️ Project Structure
 
----
-
-## 🌿 Git Workflow & Hướng dẫn Clone
-```bash
-# 1. Clone repository về máy
-git clone https://gitlab.com/capstone_yah/restful-booker-api-automation.git
-cd restful-booker-api-automation
-
-# 2. Chuyển sang nhánh develop
-git checkout develop
-
-# 3. Tạo nhánh feature từ develop để làm bài
-git checkout -b feature/<ten-tinh-nang>-<ten-ban>
+```text
+restful-booker-api-automation/
+├── .github/workflows/          # GitHub Actions CI pipeline
+├── src/
+│   ├── main/java/
+│   │   ├── api/
+│   │   │   └── BaseApi.java             # RequestSpecification setup & AllureRestAssured filter
+│   │   └── utils/
+│   │       ├── ApiDataStore.java        # Dynamic in-memory store for Token & Booking IDs
+│   │       └── ConfigReader.java        # Loads baseUrl and endpoints from config.properties
+│   └── test/java/
+│       └── api/
+│           ├── BaseApiTest.java         # Test lifecycle base class
+│           ├── AuthTest.java            # Authentication positive & negative test scenarios
+│           ├── BookingTest.java         # Full CRUD lifecycle & Request Chaining test suite
+│           └── FilterBookingTest.java   # Query parameter filtering (names, dates)
+├── src/test/resources/
+│   ├── schemas/
+│   │   └── booking-schema.json          # JSON Schema contract specification for Booking
+│   ├── config.properties                # Base URL and API configuration parameters
+│   └── testng.xml                       # TestNG test suite runner
+├── pom.xml                              # Maven build config, dependencies & Allure plugins
+└── README.md
 ```
-* **Nhánh chính**: `main` (Production/Demo), `develop` (Tích hợp phát triển).
-* **Nhánh tính năng gợi ý**: `feature/api-auth-ha`, `feature/api-crud-chi`.
 
 ---
 
-## 🛠️ Hướng dẫn chạy Test
+## 📋 API Test Scenarios & Coverage Matrix
+
+| ID | Method | Endpoint | Scenario | Priority | Expected Status |
+| :--- | :---: | :--- | :--- | :---: | :---: |
+| **`API-SC-01`** | `POST` | `/auth` | Create Auth Token with valid credentials | **High** | `200 OK` (token returned) |
+| **`API-SC-02`** | `POST` | `/auth` | Attempt login with bad credentials | **Low** | `200 OK` (`reason: Bad credentials`) |
+| **`API-SC-03`** | `POST` | `/booking` | Create new hotel booking entry | **High** | `200 OK` (`bookingid` generated) |
+| **`API-SC-04`** | `GET` | `/booking/{id}` | Retrieve booking & validate JSON Schema | **High** | `200 OK` (schema matches) |
+| **`API-SC-05`** | `PUT` | `/booking/{id}` | Full update of booking details (Auth Token) | **High** | `200 OK` (fields updated) |
+| **`API-SC-06`** | `PATCH` | `/booking/{id}` | Partial update (firstname only) | **Medium** | `200 OK` (firstname updated) |
+| **`API-SC-07`** | `DELETE`| `/booking/{id}` | Delete booking record (Auth Token) | **High** | `201 Created` |
+| **`API-SC-08`** | `GET` | `/booking/{id}` | Verify deleted booking returns 404 | **Medium** | `404 Not Found` |
+| **`API-SC-09`** | `GET` | `/booking` | Filter booking list by `firstname` & `lastname` | **Medium** | `200 OK` |
+| **`API-SC-10`** | `GET` | `/booking` | Filter booking list by `checkin` & `checkout` | **Medium** | `200 OK` |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+* **Java Development Kit (JDK)**: Version 17 or higher
+* **Apache Maven**: Version 3.8+
+
+### Clone Repository
 ```bash
-# Chạy test API
+git clone https://github.com/huymert/restful-booker-api-automation.git
+cd restful-booker-api-automation
+```
+
+### Execution Commands
+
+```bash
+# Execute full API regression test suite
 mvn clean test
 
-# Xem Allure Report
+# Execute test suite with specific testng configuration
+mvn test -DsuiteXmlFile=src/test/resources/testng.xml
+
+# Generate and launch Allure Report dashboard
 mvn allure:serve
 ```
+
+---
+
+## 📊 Test Reporting (Allure Report)
+
+Thanks to `allure-rest-assured`, every executed request automatically generates an interactive attachment inside the Allure Report:
+* **HTTP Method, URL & Headers**
+* **Request Body Payload (JSON format)**
+* **HTTP Response Code & Status Line**
+* **Response Body & Elapsed Response Time**
+
+```bash
+# Launch interactive dashboard in default web browser
+mvn allure:serve
+
+# Generate offline report package
+mvn allure:report
+```
+
+---
+
+## 👤 Author & Maintainer
+
+* **Hà Gia Huy** - Automation Test Engineer / SDET
+* **GitHub**: [@huymert](https://github.com/huymert)
+* **Email**: hahuyhgh@gmail.com
