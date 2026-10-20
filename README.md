@@ -116,21 +116,21 @@ mvn allure:report
 
 ## 👥 Project Team & Contributors
 
-Dự án kiểm thử tự động API Restful-Booker được phát triển bởi **Team 2** (Capstone Project) với sự phân công trách nhiệm:
+This project was developed by **Team 2** (Capstone Project) with clear ownership and responsibilities:
 
-* **Lê Thị Hải Hà** ([@muckkho2728](https://github.com/muckkho2728)) - **API Module Lead**:
-  * Thiết kế & cấu hình Base API Rest Assured (`BaseApi.java`), RequestSpecBuilder & Header specifications.
-  * Xử lý xác thực Auth Token (`/auth`) & thiết lập cơ chế Request Chaining.
-  * Triển khai Test Scenarios chính: Tạo mới booking (`POST`), Lấy chi tiết booking (`GET`), tích hợp kiểm tra hợp đồng JSON Schema.
+* **Lê Thị Hải Hà** ([@muckkho2728](https://github.com/muckkho2728)) — **API Module Lead**:
+  * Designed and configured Base Rest-Assured architecture (`BaseApi.java`), `RequestSpecBuilder`, and global header specifications.
+  * Implemented Auth Token lifecycle (`POST /auth`) and request chaining mechanisms.
+  * Developed core test scenarios: Create Booking (`POST /booking`), Retrieve Booking Details (`GET /booking/{id}`), and JSON Schema contract validation.
 
-* **Trần Thị Quỳnh Chi** ([@quynhchi03](https://github.com/quynhchi03)) - **API Automation Engineer**:
-  * Triển khai Test Scenarios: Cập nhật booking (`PUT` / `PATCH`), Xóa booking (`DELETE`).
-  * Xây dựng bộ Negative Scenarios & Data-driven test filters (`FilterBookingTest.java`).
-  * Cấu hình CI/CD Pipeline & tích hợp xuất báo cáo Allure Report tự động.
+* **Trần Thị Quỳnh Chi** ([@quynhchi03](https://github.com/quynhchi03)) — **API Automation Engineer**:
+  * Developed mutation test scenarios: Full Update (`PUT /booking/{id}`), Partial Update (`PATCH /booking/{id}`), and Delete Booking (`DELETE /booking/{id}`).
+  * Built negative testing scenarios and dynamic data-driven query filters (`FilterBookingTest.java`).
+  * Configured CI/CD pipeline and automated Allure Report publishing.
 
-* **Hà Gia Huy** ([@huymert](https://github.com/huymert)) - **Framework Architecture & Technical Support**:
-  * Khởi tạo kiến trúc base skeleton cho framework (Maven, TestNG, Rest Assured dependencies).
-  * Hỗ trợ kỹ thuật, tối ưu hóa cơ chế lưu trữ dữ liệu chia sẻ (`ApiDataStore`) và tích hợp CI/CD.
+* **Hà Gia Huy** ([@huymert](https://github.com/huymert)) — **Framework Architecture & Technical Support**:
+  * Initialized the base automation framework skeleton (Maven configuration, TestNG suite, and Rest-Assured dependencies).
+  * Provided technical advisory, optimized dynamic in-memory data persistence (`ApiDataStore`), and supported CI/CD integration.
 
-* **Nguyễn Khánh Linh** - Thành viên Team 2 (Phụ trách Module Web UI).
-* **Mentor / Product Owner**: Thầy Vũ Lê Minh.
+* **Nguyễn Khánh Linh** — Team Member (Web UI Automation Module).
+* **Mentor & Project Advisor**: Mr. Vũ Lê Minh.
