@@ -114,8 +114,23 @@ mvn allure:report
 
 ---
 
-## 👤 Author & Maintainer
+## 👥 Project Team & Contributors
 
-* **Hà Gia Huy** - Automation Test Engineer / SDET
-* **GitHub**: [@huymert](https://github.com/huymert)
-* **Email**: hahuyhgh@gmail.com
+Dự án kiểm thử tự động API Restful-Booker được phát triển bởi **Team 2** (Capstone Project) với sự phân công trách nhiệm:
+
+* **Lê Thị Hải Hà** ([@muckkho2728](https://github.com/muckkho2728)) - **API Module Lead**:
+  * Thiết kế & cấu hình Base API Rest Assured (`BaseApi.java`), RequestSpecBuilder & Header specifications.
+  * Xử lý xác thực Auth Token (`/auth`) & thiết lập cơ chế Request Chaining.
+  * Triển khai Test Scenarios chính: Tạo mới booking (`POST`), Lấy chi tiết booking (`GET`), tích hợp kiểm tra hợp đồng JSON Schema.
+
+* **Trần Thị Quỳnh Chi** ([@quynhchi03](https://github.com/quynhchi03)) - **API Automation Engineer**:
+  * Triển khai Test Scenarios: Cập nhật booking (`PUT` / `PATCH`), Xóa booking (`DELETE`).
+  * Xây dựng bộ Negative Scenarios & Data-driven test filters (`FilterBookingTest.java`).
+  * Cấu hình CI/CD Pipeline & tích hợp xuất báo cáo Allure Report tự động.
+
+* **Hà Gia Huy** ([@huymert](https://github.com/huymert)) - **Framework Architecture & Technical Support**:
+  * Khởi tạo kiến trúc base skeleton cho framework (Maven, TestNG, Rest Assured dependencies).
+  * Hỗ trợ kỹ thuật, tối ưu hóa cơ chế lưu trữ dữ liệu chia sẻ (`ApiDataStore`) và tích hợp CI/CD.
+
+* **Nguyễn Khánh Linh** - Thành viên Team 2 (Phụ trách Module Web UI).
+* **Mentor / Product Owner**: Thầy Vũ Lê Minh.
